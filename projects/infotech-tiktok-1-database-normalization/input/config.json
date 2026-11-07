@@ -1,0 +1,12 @@
+{
+  "title": "INFOTECH TIKTOK 1 DATABASE NORMALIZATION",
+  "theme": "infotech-neon",
+  "aspectRatio": "9:16",
+  "audioSrc": "sample-bgm.wav",
+  "audioVolume": 0.25,
+  "voiceoverSrc": null,
+  "captionsFile": "captions.json",
+  "durationInFrames": 300,
+  "fps": 30,
+  "overlays": []
+}
