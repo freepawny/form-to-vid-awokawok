@@ -1,0 +1,16 @@
+{
+  "name": "video-generator-workspace",
+  "version": "1.0.0",
+  "description": "Clean multi-project workspace for 3D animated video generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "project:new": "node ./engine/scripts/project-manager.mjs new",
+    "project:sync": "node ./engine/scripts/project-manager.mjs sync",
+    "project:dev": "node ./engine/scripts/project-manager.mjs dev",
+    "project:render": "node ./engine/scripts/project-manager.mjs render",
+    "project:render:vertical": "node ./engine/scripts/project-manager.mjs render --vertical",
+    "project:render:landscape": "node ./engine/scripts/project-manager.mjs render --landscape",
+    "typecheck": "npm --prefix engine run typecheck"
+  }
+}

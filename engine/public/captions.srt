@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:02,300
+Welcome to 3D video generation
+
+2
+00:00:02,450 --> 00:00:04,650
+with Three.js and Remotion!

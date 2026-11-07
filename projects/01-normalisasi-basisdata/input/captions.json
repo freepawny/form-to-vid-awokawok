@@ -1,0 +1,13 @@
+[
+  { "text": "Jangan", "startMs": 100, "endMs": 500, "timestampMs": 300, "confidence": 0.99 },
+  { "text": " asal", "startMs": 500, "endMs": 850, "timestampMs": 700, "confidence": 0.99 },
+  { "text": " copas", "startMs": 850, "endMs": 1300, "timestampMs": 1100, "confidence": 0.99 },
+  { "text": " tabel", "startMs": 1300, "endMs": 1700, "timestampMs": 1500, "confidence": 0.99 },
+  { "text": " Excel", "startMs": 1700, "endMs": 2200, "timestampMs": 1950, "confidence": 0.99 },
+  { "text": " ke", "startMs": 2200, "endMs": 2450, "timestampMs": 2350, "confidence": 0.99 },
+  { "text": " database,", "startMs": 2450, "endMs": 3100, "timestampMs": 2800, "confidence": 0.99 },
+  { "text": " atau", "startMs": 3200, "endMs": 3500, "timestampMs": 3350, "confidence": 0.99 },
+  { "text": " aplikasimu", "startMs": 3500, "endMs": 4200, "timestampMs": 3850, "confidence": 0.99 },
+  { "text": " bakal", "startMs": 4200, "endMs": 4600, "timestampMs": 4400, "confidence": 0.99 },
+  { "text": " jebol!", "startMs": 4600, "endMs": 5500, "timestampMs": 5050, "confidence": 0.99 }
+]

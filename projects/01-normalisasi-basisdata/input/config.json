@@ -1,0 +1,10 @@
+{
+  "title": "Normalisasi Basis Data",
+  "audioSrc": "sample-bgm.wav",
+  "audioVolume": 0.25,
+  "voiceoverSrc": null,
+  "captionsFile": "captions.json",
+  "durationInFrames": 180,
+  "fps": 30,
+  "overlays": []
+}
