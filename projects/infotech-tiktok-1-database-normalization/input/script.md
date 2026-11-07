@@ -1,62 +1,49 @@
-# Script Konten TikTok: Bahaya Tabel UNF & Tahapan Normalisasi Database (1NF - 3NF+)
+# Script Konten TikTok: Bahaya Desain Database UNF & Seni Normalisasi (1NF - 3NF+)
 
 **Target Audiens:** Pemula yang baru belajar Basis Data  
+**Estimasi Durasi:** 1,5 Menit (90 Detik)  
 **Format:** Vertikal 9:16 (TikTok / Reels / Shorts)  
-**Referensi Teknis:** `input/assets/rujukan-ddl-database.md` (Studi Kasus `Pesanan_Penjualan` - Oracle Database)
+**Referensi:** `input/assets/rujukan-ddl-database.md` (Studi Kasus Oracle: `Pesanan_Penjualan`)  
+**Dinamika Emosi:** Serius di masalah -> Satir/Bercanda di dampak -> Mengalir lancar (Flowstate) di solusi.
 
 ---
 
-### 1. Hook (00:00 - 00:05)
-> **"Masih suka gabungin semua data ke satu tabel database raksasa kayak di Excel? Hati-hati, itu bom waktu yang bikin aplikasimu hancur!"**
+### 1. Hook (00:00 - 00:08)
+*(Ekspresi: Serius, tatap kamera, nada misterius)*  
+> **"Pernah nggak kepikiran... satu kesalahan sepele pas bikin tabel database, bisa bikin seluruh aplikasimu runtuh pas penggunanya mulai ramai?"**
 
 ---
 
-### 2. Masalah & Definisi UNF (00:05 - 00:18)
-Banyak pemula nggak sadar membiarkan tabelnya dalam kondisi **UNF (*Unnormalized Form*)**—alias tabel mentah yang belum dinormalisasi.
-
-Contohnya di tabel `Pesanan_Penjualan`:
-- **Non-Atomik (Multi-value):** Budi punya 2 nomor HP (`0812... , 0819...`), tapi dijejali sekaligus dalam satu kolom `No_Telepon`.
-- **Non-Atomik (Komposit):** Jalan, kota, dan kode pos digabung mentah-mentah di kolom `Alamat_Lengkap`.
-- **Tanpa Primary Key & Redundansi Tinggi:** Setiap kali Budi beli barang baru, nama, alamat, dan nomor teleponnya diketik ulang terus!
-
-**Bahayanya apa?** Muncul 3 Anomali Mematikan:
-1. **Update Anomaly:** Pas Budi pindah rumah, kalau ada satu baris aja yang kelewat di-update, data langsung bentrok!
-2. **Insert Anomaly:** Nggak bisa input produk baru ke katalog kalau belum ada pembeli yang memesan.
-3. **Delete Anomaly:** Hapus satu riwayat pesanan, eh data master produknya ikut lenyap!
+### 2. Masalah: Jebakan UNF (00:08 - 00:25)
+*(Ekspresi: Serius & Analitis)*  
+Banyak pemula mendesain database pakai konsep 'asal jadi' kayak spreadsheet Excel: semua data ditumpuk di satu tabel raksasa `Pesanan_Penjualan`.
+Dua nomor HP Budi dijejali di satu kolom, alamat jalan sampai kode pos dicampur aduk, dan nggak ada *Primary Key* yang jelas.
+Kondisi semrawut ini disebut **UNF**—*Unnormalized Form*.
 
 ---
 
-### 3. Tahap 1: First Normal Form / 1NF (00:18 - 00:30)
-**Aturan 1NF:** Semua kolom wajib bernilai **atomik (tunggal)** dan punya **Primary Key**.
-- Pecah `Alamat_Lengkap` jadi kolom terpisah: `Alamat_Jalan`, `Kota`, dan `Kode_Pos`.
-- Pisahkan multi-value `No_Telepon` menjadi baris-baris individual.
-- Pasang *Composite Primary Key* gabungan dari `(No_Pesanan, Kode_Produk, No_Telepon)`.
+### 3. Dampak: Anomali Mematikan (00:25 - 00:45)
+*(Ekspresi: Sedikit tertawa sarkas / bercanda, relate)*  
+Kelihatannya praktis, kan? Tapi tunggu sampai Budi pindah rumah!
+Pas kamu update alamat Budi, eh kurirmu malah nyasar nganter barang ke rumah mantan Budi.
+Mau nambah produk baru ke katalog? Databasemu bakal nolak: *"Maaf ya, harus ada pembeli dulu baru barangnya boleh didaftarkan!"*—kan kocak!
+Dan yang paling horor: pas satu transaksi dibatalkan dan dihapus, eh data master produknya ikut lenyap ke alam gaib.
+Selamat, kamu baru saja kena tiga kutukan anomali database!
 
 ---
 
-### 4. Tahap 2: Second Normal Form / 2NF (00:30 - 00:43)
-**Aturan 2NF:** Lolos 1NF + hilangkan **Ketergantungan Parsial (*Partial Dependency*)**.
-Semua kolom non-kunci harus bergantung penuh pada seluruh Primary Key, bukan cuma numpang di sebagian kunci!
-- Kita pecah jadi 4 tabel:
-  1. `Produk_2NF` (khusus menyimpan `Kode_Produk`, nama, kategori, harga).
-  2. `Pesanan_2NF` (menyimpan info order & pelanggan).
-  3. `Pesanan_Telepon_2NF` (menyimpan nomor kontak per pesanan).
-  4. `Detail_Pesanan_2NF` (mencatat `Qty` per produk dalam pesanan).
+### 4. Solusi Mengalir: Seni Normalisasi (00:45 - 01:15)
+*(Ekspresi: Tenang, runtut, mengalir mulus bikin penonton fokus)*  
+Solusinya cuma satu: **Normalisasi**.
+- **Tahap 1NF:** Kolom gado-gado wajib dibersihkan! Alamat kita urai jadi jalan, kota, kode pos. Nomor telepon kita pisahkan per baris, dan kita kunci dengan *Composite Key*.
+- **Tahap 2NF:** Buang ketergantungan parsial! Data yang cuma 'numpang lewat' kayak info produk kita amankan ke tabel master `Produk`. Sekarang nambah barang baru nggak perlu nunggu ada yang belanja.
+- **Tahap 3NF:** Putus ketergantungan transitif! Alamat dan kontak itu melekat ke orangnya, bukan ke nomor fakturnya. Begitu entitas `Pelanggan` dipisah, update alamat Budi cukup sekali sentuh tanpa merusak riwayat transaksi.
 
 ---
 
-### 5. Tahap 3: Third Normal Form / 3NF (00:43 - 00:55)
-**Aturan 3NF:** Lolos 2NF + hilangkan **Ketergantungan Transitif (*Transitive Dependency*)**.
-Di `Pesanan_2NF`, alamat itu sebenarnya nempel ke `Nama_Pelanggan`, bukan ke `No_Pesanan` (`No_Pesanan -> Nama_Pelanggan -> Alamat`).
-- Solusinya: Pisahkan entitas pembeli ke tabel master `Pelanggan_3NF` (pakai `ID_Pelanggan`) dan `Pelanggan_Telepon_3NF`.
-- Hasilnya: Tabel `Pesanan_3NF` sekarang super bersih, cukup simpan `No_Pesanan`, `Tgl_Pesanan`, dan Foreign Key `ID_Pelanggan`!
-
----
-
-### 6. Teaser / Spill Tahap Lanjutan & CTA (00:55 - 01:05)
-Dengan 3NF, database kamu udah bebas redundansi dan aman dari anomali!
-
-**Tapi tunggu dulu...** kamu kira normalisasi berhenti di 3NF doang?
-Ternyata **TIDAK!** Buat sistem berskala besar dan relasi super kompleks, masih ada **BCNF (Boyce-Codd Normal Form), 4NF, 5NF, hingga 6NF!**
-
-Penasaran kapan kita harus pakai 4NF dan seterusnya? Coba *browsing* atau tulis di kolom komentar kalau mau kita bahas di part selanjutnya! Jangan lupa *save* & *share* ke temen ngodingmu!
+### 5. Teaser 4NF+ & Penutup (01:15 - 01:30)
+*(Ekspresi: Tersenyum penasaran, antusias)*  
+Tabelmu sekarang udah rapi dan bebas redundansi.
+Tapi kamu kira normalisasi cuma mandek di 3NF?
+Di sistem enterprise raksasa, masih ada **BCNF, 4NF, bahkan sampai 6NF!**
+Kira-kira kasus rumit apa ya yang bikin kita butuh sampai level 4NF? Coba kalian kepoin, atau tulis di komentar kalau mau kita bahas di part dua! Jangan lupa save video ini biar nggak kena anomali lagi!
